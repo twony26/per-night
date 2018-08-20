@@ -21,6 +21,10 @@ import { FileSizePipe } from './file-size.pipe';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './home/home.component';
+import { PackageComponent } from './packages/package/package.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PackageService } from './packages/shared/package.service';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,8 @@ import { HomeComponent } from './home/home.component';
     FileSizePipe,
     NavbarComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    PackageComponent
 
   ],
   imports: [
@@ -39,9 +44,12 @@ import { HomeComponent } from './home/home.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ PackageService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
