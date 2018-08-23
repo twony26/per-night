@@ -25,6 +25,7 @@
     "angularfire2": "^5.0.0-rc.5.6-next",
     "core-js": "^2.4.1",
     "firebase": "^4.8.2",
+    "guid-typescript": "^1.0.7",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },

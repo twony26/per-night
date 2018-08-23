@@ -1,3 +1,5 @@
+import { Guid } from "guid-typescript/dist/guid";
+
 export class Package {
     $key: string;
     name: string;
@@ -9,4 +11,5 @@ export class Package {
     address: string;
     imgUrl: string;
     contactNumber: string;
+    guid: Guid;
 }

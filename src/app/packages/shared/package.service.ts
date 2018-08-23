@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Package } from './package.model';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Guid } from "guid-typescript";
+
 
 @Injectable()
 export class PackageService {
     packageList: AngularFireList<any>;
+    guid: Guid;
 
     constructor(private fb: AngularFireDatabase) { //
         this.packageList = this.fb.list('/packages');
@@ -23,6 +26,8 @@ export class PackageService {
         });
     }
 
+
+
     insertPackage(_package: Package) {
         const _p: Package = new Package();
         _p.address = _package.address;
@@ -34,6 +39,7 @@ export class PackageService {
         _p.contactNumber = _package.contactNumber;
         _p.inclusions = _package.inclusions;
         _p.imgUrl = _package.imgUrl;
+        _p.guid = Guid.create()['value'];
         this.packageList.push(_p);
     }
 

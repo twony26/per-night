@@ -8,7 +8,7 @@
         <div class="row" >
             <div class="col-lg-4 col-md-6 col-xs-6" *ngFor="let p of (packageList | async)">
                 <h4>{{ p.name }}</h4>
-                <a [routerLink]="['/viewpackage',p.key]">
+                <a [routerLink]="['/viewpackage',p.guid]">
                     <img class="img-rounded img-responsive" src="{{p.imgUrl}}" alt="">
                 </a>
                 <h4>{{ p.description }}</h4>
