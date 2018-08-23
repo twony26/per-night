@@ -1,9 +1,18 @@
-<h6 class="text-center">
-    Employee Register
-</h6>
-<table class="table-sm table-hover">
-    <tr *ngFor="let p of packageList">
-        <td>{{ p.description }}</td>
-        <td>{{ p.location }}</td>
-    </tr>
-</table>
+<div class="wrapper">
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('../assets/img/fabio-mangione.jpg');">
+        <div class="filter"></div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row" >
+            <div class="col-lg-4 col-md-6 col-xs-6" *ngFor="let p of (packageList | async)">
+                <h4>{{ p.name }}</h4>
+                <a [routerLink]="['/viewpackage',p.key]">
+                    <img class="img-rounded img-responsive" src="{{p.imgUrl}}" alt="">
+                </a>
+                <h4>{{ p.description }}</h4>
+            </div>
+        </div>
+    </div>
+</div>

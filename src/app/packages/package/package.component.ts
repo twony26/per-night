@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import { Package } from '../shared/package.model';
 import { AngularFireStorageReference, AngularFireUploadTask, AngularFireStorage } from 'angularfire2/storage';
 import { Observable } from 'rxjs/Observable';
+import { finalize, map, filter } from 'rxjs/operators';
 //import { map } from 'rxjs/operator/map';
 @Component({
   selector: 'package',
@@ -18,6 +19,8 @@ export class PackageComponent implements OnInit {
   uploadState: Observable<string>;
   uploadProgress: Observable<number>;
   downloadURL: Observable<string>;
+  image_url: string;
+  currentUpload: number;
 
   packageForm: FormGroup;
   name: FormControl;
@@ -31,6 +34,7 @@ export class PackageComponent implements OnInit {
   contactNumber: FormControl;
 
   @ViewChild('url') nameInputRef: ElementRef;
+  @ViewChild('fileInput') fileInputRef: ElementRef;
 
 
   constructor(private svc: PackageService, private afStorage: AngularFireStorage) {
@@ -42,6 +46,7 @@ export class PackageComponent implements OnInit {
     //         p.description = y['description'];
     //     });
     // });
+    this.currentUpload = 0;
   }
 
   ngOnInit() {
@@ -72,16 +77,36 @@ export class PackageComponent implements OnInit {
   savePackage(packageForm: any) {
     let p: Package = new Package();
     p = packageForm as Package;
-    p.imgUrl = this.nameInputRef.nativeElement.attributes.src.value;
+    p.imgUrl = this.image_url;
     this.svc.insertPackage(packageForm);
-    // this.resetForm(packageForm);
-    // alert('Submitted Successfully');
+
+    alert('Submitted Successfully');
+    this.packageForm.reset({
+      name: '',
+      contactNumber:'',
+      inclusions: '',
+      minPersons: '',
+      maxPersons: '',
+      duration: '',
+      description: '',
+      address: '',
+      imgUrl: ''
+    });
+
+    this.image_url = '';
+    this.currentUpload = 0;
+    this.fileInputRef.nativeElement.value = '';
+
   }
 
   resetForm(packageForm?: FormGroup) {
     if (packageForm != null) {
-      packageForm.reset();
+      packageForm.reset({
+        name: { value: '' }
+      });
+      this.imgUrl = null;
     }
+    this.name = new FormControl('');
     // this.svc.selectedPackage = {
     //     $key: null,
     //     description: '',
@@ -96,6 +121,7 @@ export class PackageComponent implements OnInit {
     // }
   }
 
+
   upload(event) {
     const file = event.target.files[0];
 
@@ -104,12 +130,21 @@ export class PackageComponent implements OnInit {
       return;
     }
 
-    const path = `${new Date().getTime()}'/'${file.name}`;
+    const path = (new Date().getTime()).toString() + '/' + file.name;
+    var storageRef = firebase.storage().ref();
+    let uploadTask = storageRef.child(path).put(file);
 
-    this.ref = this.afStorage.ref(path);
-    this.task = this.ref.put(event.target.files[0]);
-    this.uploadProgress = this.task.percentageChanges();
-    this.downloadURL = this.task.downloadURL();
-    console.log(this.downloadURL);
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) => {
+        let c = (snapshot['bytesTransferred'] / snapshot['totalBytes']) * 100;
+        this.currentUpload = c;
+      },
+      (error) => {
+        console.log(error)
+      },
+      () => {
+        this.image_url = uploadTask.snapshot.downloadURL;
+      }
+    );
   }
 }

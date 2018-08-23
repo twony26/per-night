@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="500">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="#">The Travel</a>
+            <a class="navbar-brand" href="#">The Traveler</a>
             <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
                 <span class="navbar-toggler-bar"></span>
                 <span class="navbar-toggler-bar"></span>
@@ -15,18 +15,8 @@
                     <a [routerLink]="['/home']" class="nav-link"><i class="nc-icon nc-book-bookmark"></i>Home</a>
                 </li>
                 <li class="nav-item" *ngIf="!isDocumentation()">
-                    <a [routerLink]="['/package']" class="nav-link" ><i class="nc-icon nc-book-bookmark"></i>Create Package</a>
+                    <a [routerLink]="['/createpackage']" class="nav-link" ><i class="nc-icon nc-book-bookmark"></i>Create Package</a>
                 </li>
-                <!-- <li class="nav-item" *ngIf="isHome()">
-                    <a href="https://www.creative-tim.com/product/paper-kit-2-pro?ref=pk2-free-local" target="_blank" class="btn btn-danger btn-round disabled">Upgrade to Pro</a>
-                </li> -->
-                <!-- <li class="nav-item" *ngIf="!isHome()">
-                    <a [routerLink]="['/home']" *ngIf="!isDocumentation()" class="nav-link"><i class="nc-icon nc-layout-11"></i>Components</a>
-                    <a [routerLink]="['/home']" *ngIf="isDocumentation()" class="nav-link">Back to Kit</a>
-                </li>
-                <li class="nav-item" *ngIf="isDocumentation()">
-                    <a href="https://github.com/creativetimofficial/pk-free-angular/issues?ref=pk2-free-local" target="_blank" class="nav-link">Have an issue</a>
-                </li> -->
             </ul>
         </div>
     </div>

@@ -1,3 +1,4 @@
+import { PackagesComponent } from './packages/packages.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -25,6 +26,8 @@ import { PackageComponent } from './packages/package/package.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PackageService } from './packages/shared/package.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { PackageListComponent } from "./packages/package-list/package-list.component";
+import { ViewpackageComponent } from './packages/viewpackage/viewpackage.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     NavbarComponent,
     FooterComponent,
     HomeComponent,
-    PackageComponent
+    PackageComponent,
+    PackagesComponent,
+    PackageListComponent,
+    ViewpackageComponent
 
   ],
   imports: [

@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs/Rx';
+import { AngularFireList } from 'angularfire2/database/interfaces';
+import { PackageService } from '../packages/shared/package.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,7 +15,11 @@ export class HomeComponent implements OnInit {
         middle: false,
         right: false
     };
-    constructor() { }
+    packageList: Observable<any>;
+    constructor(private svc: PackageService) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        let c = this.svc.getData();
+        this.packageList = c;
+    }
 }

@@ -11,7 +11,16 @@ export class PackageService {
     }
 
     getData() {
-        return this.packageList;
+        //return this.packageList.valueChanges();
+        return this.packageList.snapshotChanges().map(changes => {
+            return changes.map(c => ({ key: c.payload.key,...c.payload.val() }))
+        });
+    }
+
+    getpackageDetails(_key:string){
+        return this.fb.list('/packages/'+ _key).snapshotChanges().map(changes => {
+            return changes.map(c => ({ key: c.payload.key,...c.payload.val() }))
+        });
     }
 
     insertPackage(_package: Package) {
