@@ -26,6 +26,8 @@
     "core-js": "^2.4.1",
     "firebase": "^4.8.2",
     "guid-typescript": "^1.0.7",
+    "ngx-bootstrap": "^3.0.1",
+    "ngx-owl-carousel": "^2.0.7",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },
